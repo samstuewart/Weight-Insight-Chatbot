@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weight Insight Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Weight Insight Chatbot</h1>
+    <button onclick="askBot()">Show Weight Trend</button>
+
+    <div class="spinner" id="spinner"></div>
+
+    <div class="response-box" id="response-box">
+      <p id="insight-text">Chart & Insight will appear here...</p>
+      <img id="chart-image" src="" alt="Chart will appear here" />
+    </div>
+  </div>
+
+  <script>
+    const BACKEND_URL = "http://localhost:8000";
+
+    async function askBot() {
+      const insight = document.getElementById("insight-text");
+      const image = document.getElementById("chart-image");
+      const spinner = document.getElementById("spinner");
+
+      insight.textContent = "";
+      image.src = "";
+      spinner.style.display = "block";
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/chat`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ intent: "weight_trend" })
+        });
+
+        const data = await response.json();
+        spinner.style.display = "none";
+
+        if (data.error) {
+          insight.textContent = `❌ ${data.error}`;
+        } else {
+          image.src = `${BACKEND_URL}${data.chart_url}`;
+          insight.textContent = data.insight;
+        }
+
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        spinner.style.display = "none";
+        insight.textContent = "❌ Failed to load data.";
+      }
+    }
+  </script>
+</body>
+</html>
