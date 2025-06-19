@@ -1,91 +1,56 @@
-# 💬 Weight Insight Chatbot
+# Weight Insight Chatbot
 
-A lightweight chatbot web application that provides personalized weight trend insights using natural language and generates dynamic charts using Highcharts.
-
----
+A lightweight chatbot web application that provides personalized weight trend insights using natural language and displays visual charts using Highcharts.
 
 ## Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript  
-- **Charting Library:** Highcharts  
-- **Backend:** Python, FastAPI  
+- **Backend:** Python with FastAPI  
 - **LLM Integration:** LLaMA 3 via Ollama  
-- **Data Source:** Mock weight data  
-- **Image Generation:** Chart converted to image from Highcharts  
-
----
+- **Charting:** Highcharts (converted to image)  
+- **Data Source:** Simulated mock weight data  
 
 ## Features
 
-- Natural language chatbot for weight insight queries  
-- LLaMA 3 used for generating textual insights  
-- Highcharts used for dynamic chart rendering  
-- Clean and responsive user interface  
-- Frontend-backend communication via REST API  
+- Simple and clean chatbot interface for querying weight trends  
+- Backend uses LLaMA 3 to generate intelligent health insights  
+- Highcharts is used to create visual trend charts based on weight data  
+- FastAPI handles communication between frontend and backend  
+- The application provides a fully responsive UI  
 
----
+## Workflow
 
-## How to Run the Project
+1. User clicks a button on the frontend to request a weight trend insight  
+2. A request is sent to the backend with the intent  
+3. The backend loads mock weight data  
+4. LLaMA 3 (via Ollama) generates a natural language insight  
+5. Highcharts generates a weight trend chart, which is saved as an image  
+6. The backend returns the chart image path and insight  
+7. The frontend displays both in a user-friendly layout  
 
-### 1. Install Python Dependencies
+## Example Output
 
-Make sure you have **Python 3.10+** and **Ollama** installed.
+- **Insight:** “Your weight has remained stable over the past few weeks with minor fluctuations.”  
+- **Chart:** Displayed using Highcharts, rendered as an image  
 
-```bash
-pip install fastapi uvicorn python-multipart
-2. Install and Run Ollama
-Download the model and start the LLM server:
+## Local Setup
 
-bash
-Copy
-Edit
-ollama pull llama3
-ollama run llama3
-⚠️ Keep this running in a separate terminal.
+- Requires Python 3.10+, FastAPI, and Ollama with LLaMA 3 model  
+- LLaMA 3 must be running as a local service via Ollama  
+- Backend serves the `/chat` endpoint to accept intent requests  
+- Frontend uses plain HTML, CSS, and JavaScript, and can be opened directly in a browser  
 
-3. Start Backend Server
-bash
-Copy
-Edit
-cd backend
-uvicorn main:app --reload
-Backend runs at: http://localhost:8000
+## Deployment
 
-4. Open the Frontend
-Open the frontend/index.html file directly in your browser.
-Click the "Show Weight Trend" button to fetch the insight and chart.
+- Backend can be deployed using Uvicorn or Gunicorn  
+- Frontend is static and can be hosted on platforms like GitHub Pages or Netlify  
 
-💡 How It Works
-User clicks the "Show Weight Trend" button
+## License
 
-Frontend sends POST request with { intent: "weight_trend" } to /chat endpoint
+This project is licensed under the MIT License. You’re free to use, modify, and share with credit.
 
-Backend loads mock weight data and calls LLaMA 3 to generate insight
+## Acknowledgements
 
-A chart is created using Highcharts, converted to image, and returned
-
-Frontend displays the insight text and the generated chart image
-
-📸 Example Output
-🧠 Insight: "Your weight trend has been stable over the past 30 days with slight fluctuations."
-📈 Chart: Rendered with Highcharts and embedded as an image
-
-📦 Deployment
-Backend: Can be deployed using Uvicorn or Gunicorn behind a reverse proxy
-
-Frontend: Static HTML, easily hostable via GitHub Pages, Netlify, Vercel, etc.
-
-📝 License
-MIT License. Feel free to use, modify, and distribute with credit.
-
-🙌 Acknowledgements
-Ollama — for running LLaMA 3 models locally
-
-Highcharts — for rich chart rendering
-
-FastAPI — for the async Python backend
-
-
-
----
-
+- **Ollama** for local LLaMA model integration  
+- **Highcharts** for elegant chart visualizations  
+- **FastAPI** for building a modern, async backend  
